@@ -3,7 +3,7 @@ import json
 
 # Why flask? Because it's the first thing google gave me
 app = Flask(__name__)
-app.config["DEBUG"] = True
+# app.config["DEBUG"] = True
 
 
 # Create some test data for our catalog in the form of a list of dictionaries.
