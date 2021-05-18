@@ -16,6 +16,6 @@ for i in range(200001, 201200):
     res.append(dic)
 
 
-infile = open("out.txt", "a")
+infile = open("db.json", "a")
 infile.write(json.dumps(res))
 

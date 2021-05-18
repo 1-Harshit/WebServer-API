@@ -3,11 +3,11 @@ import json
 
 # Why flask? Because it's the first thing google gave me
 app = Flask(__name__)
-# app.config["DEBUG"] = True
+app.config["DEBUG"] = True
 
 
 # Create some test data for our catalog in the form of a list of dictionaries.
-FILENAME = "out.txt"
+FILENAME = "db.json"
 
 # IDK why I'm printing this
 print("kuch to ho rhaa hai...")
@@ -25,7 +25,7 @@ def home():
         <body><h1>Whats poppin</h1>
         <p>So, click on the links. to do things :\</p>
         <p>To view the entire list of database: <a href="/all">Click Here</a></p>
-        <p>To see Number of coins to a roll number: <a href="/coins">Click Here</a></p>
+        <p>Post request on '/coins'</p>
         </body></html>'''
 
 
@@ -39,35 +39,26 @@ def api_all():
 def coins():
     # Check if roll was provided as part of the URL.
     # If roll is provided, assign it to a variable. Else ask for it.
-    if 'roll' in request.args:
-        roll = str(request.args['roll'])
+    if 'rollno' in request.args:
+        roll = str(request.args['rollno'])
     elif request.method == "POST":
        # getting input with name = fname in HTML form
-       roll = str(request.form.get("roll"))
+       data = dict(request.get_json())
+       roll = str(data['rollno'])
     else:
-        return '''<html>    
-            <head><title>How rich are you?</title></head>
-            <body>
-            <form action = "/coins" method = "post">
-            <label for="roll">Enter Roll:</label><br>
-            <input type="text" id="roll" name="roll" placeholder="Y18-Y19-Y20 Roll"><br>
-            <button type="submit">Search</button>
-            </form>
-            </body></html>'''
-    
-    # Create an empty list for our results
-    results = []
+        return 'Only Post method'
+
 
     # Loop through the data and match results that fit the requested ID.
     # IDs are unique, but other fields might return many results
     for entry in rcoin:
         if entry['roll'] == roll:
-            results.append(entry)
+            result = {"coins" : int(entry['coins'])}
             break
 
     # Use the jsonify function from Flask to convert our list of
     # Python dictionaries to the JSON format.
-    return jsonify(results)
+    return jsonify(result)
 
 # Error404
 @app.errorhandler(404)
