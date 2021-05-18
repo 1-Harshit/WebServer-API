@@ -3,14 +3,10 @@ import json
 
 # Why flask? Because it's the first thing google gave me
 app = Flask(__name__)
-app.config["DEBUG"] = True
-
+# app.config["DEBUG"] = True
 
 # Create some test data for our catalog in the form of a list of dictionaries.
 FILENAME = "db.json"
-
-# IDK why I'm printing this
-print("kuch to ho rhaa hai...")
 
 inFile = open(FILENAME, 'r')
 line = inFile.readline()
@@ -37,31 +33,21 @@ def api_all():
 # 
 @app.route('/coins', methods=['GET', 'POST'])
 def coins():
-    # Check if roll was provided as part of the URL.
-    # If roll is provided, assign it to a variable. Else ask for it.
-    """ if 'rollno' in request.args:
-        roll = str(request.args['rollno'])
-    el """
+    # Check if roll was provided as json.
     if request.method == "POST":
-       # getting input with name = fname in HTML form
        data = dict(request.get_json())
        roll = str(data['rollno'])
     else:
         return 'Only Post method'
 
-    # return jsonify(roll)
-
-    # Loop through the data and match results that fit the requested ID.
-    # IDs are unique, but other fields might return many results
+    # Loop through the data and match results that fit the requested roll.
     for entry in rcoin:
         if entry['roll'] == roll:
             result = {"coins" : int(entry['coins'])}
-            # Use the jsonify function from Flask to convert our list of
-            # Python dictionaries to the JSON format.
+            # Use the jsonify function from Flask to return in JSON format.
             return jsonify(result)
 
-    # Use the jsonify function from Flask to convert our list of
-    # Python dictionaries to the JSON format.
+    # if no matches found
     return "No record found Please enter valid roll no"
 
 # Error404
