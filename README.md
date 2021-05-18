@@ -5,7 +5,7 @@ Ignore the junk folder it is a archive i made while messing with flask
 
 It is made in Flask Python
 
-`out.txt` is our json data where all roll of Y18,19,20 is kinnda mentioned and more.  
+`db.json` is our json data where all roll of Y18,19,20 is kinnda mentioned and more.  
 Eg:
  ```[
   {
@@ -22,7 +22,7 @@ Eg:
 ... 
 ```
 
-`rollCoin.py` will randamize values of coins in `out.txt`
+`rollCoin.py` will randamize values of coins in `db.json`
 
 Finally, the main file `coins.py` it's easy to understand just run the file the home page is quite obvious.  
 
@@ -32,4 +32,8 @@ you can do either of follwoing:
 
 it is on port 8080.
 
-you can also serach by using `localhost:8080/coins?roll=<roll no.>`
+you can also serach by using `localhost:8080/coins?rollno=<roll no.>`  
+
+or using `curl --header "Content-Type: application/json"  --request POST  --data '{"rollno":"'$roll'"}'  http://localhost:8080/coins`
+
+or simple use `post.sh` it will prompt for roll no
