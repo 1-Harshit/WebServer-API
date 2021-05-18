@@ -1,5 +1,4 @@
-from flask import request, jsonify, Flask, render_template
-import json
+from flask import request, jsonify, Flask
 
 # Why flask? Because it's the first thing google gave me
 app = Flask(__name__)
