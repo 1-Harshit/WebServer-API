@@ -1,4 +1,5 @@
 from flask import request, jsonify, Flask
+import os
 
 # Why flask? Because it's the first thing google gave me
 app = Flask(__name__)
@@ -56,4 +57,4 @@ def page_not_found(e):
     <p>To view the homepage: <a href="/">Click Here</a></p>''', 404
 
 # Listen on port 8080
-app.run(port=8080)
+app.run(int(os.getenv('PORT', 8080)))
